@@ -276,7 +276,7 @@ class BookMyShowScraper:
             elements = row.split(":")
             row_letter = elements[1]
             # Use walrus operator to directly pull matched seats 
-            seats = [m.group(1) for s in elements[2:] if (m := re.search(r"A[^2]\d{2}(\d+)\+", s))]
+            seats = [m.group(1) for s in elements[2:] if (m := re.search(r"[A-Z]1(\d+)\+", s))]
             
             if seats:
                 available_seats[row_letter] = seats
