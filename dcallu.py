@@ -308,8 +308,8 @@ class BookMyShowScraper:
             for index, session in enumerate(target_sessions, 1):
                 s_id, s_date, s_time = session["sessionId"], session["dateCode"], session["time"]
                 
-                print(f"\n[{index}/{len(target_sessions)}] Checking Session {s_id} ({s_date} @ {s_time})\n    -> Sleeping for 30s...")
-                time.sleep(30)
+                print(f"\n[{index}/{len(target_sessions)}] Checking Session {s_id} ({s_date} @ {s_time})\n    -> Sleeping for 15s...")
+                time.sleep(15)
                 
                 str_data = self.fetch_seat_layout(s_id)
                 if not str_data:
