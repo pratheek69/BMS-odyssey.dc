@@ -222,14 +222,14 @@ class BookMyShowScraper:
             try:
                 shows = resp.json().get("data", {}).get("showTimes", [])
                 
-                # Filter for PCX SCREEN AND checking against our time range bounds
-                pcx_shows = [
+                # Filter for DOLBY CINEMA AND checking against our time range bounds
+                dc_shows = [
                     s for s in shows 
-                    if s.get("attributes") == "PCX SCREEN" 
+                    if s.get("attributes") == "DOLBY CINEMA" 
                     and Utils.is_within_time_range(s.get("showTime", ""), Config.TARGET_TIME_RANGE)
                 ]
                 
-                for show in pcx_shows:
+                for show in dc_shows:
                     sessions.append({
                         "sessionId": show["sessionId"],
                         "dateCode": show["showDateCode"],
@@ -237,9 +237,9 @@ class BookMyShowScraper:
                     })
                     
                 if Config.TARGET_TIME_RANGE:
-                    print(f"    -> Filtered {len(pcx_shows)} PCX SCREEN sessions for {date_code} within time range {Config.TARGET_TIME_RANGE}.")
+                    print(f"    -> Filtered {len(dc_shows)} DOLBY CINEMA sessions for {date_code} within time range {Config.TARGET_TIME_RANGE}.")
                 else:
-                    print(f"    -> Filtered {len(pcx_shows)} PCX SCREEN sessions for {date_code}.")
+                    print(f"    -> Filtered {len(dc_shows)} DOLBY CINEMA sessions for {date_code}.")
                     
             except Exception as e:
                 print(f"    -> JSON Parse error for {date_code}: {e}")
@@ -292,7 +292,7 @@ class BookMyShowScraper:
             print("No valid sessions found. Exiting.")
             return
 
-        print(f"\n✅ Found a total of {len(target_sessions)} PCX SCREEN sessions to monitor.\n" + "="*50)
+        print(f"\n✅ Found a total of {len(target_sessions)} DOLBY CINEMA sessions to monitor.\n" + "="*50)
         
         state = self.state_manager.load_state()
         is_first_run = not bool(state)
